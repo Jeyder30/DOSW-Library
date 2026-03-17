@@ -11,13 +11,13 @@ public class BookServiceTest {
     @Test
     void shouldAddAndGetBook() {
         BookService service = new BookService();
-        Book book = new Book("1", "Clean Code", "Robert Martin");
+        Book book = new Book("1", "Clean Code", "Martin");
 
         service.addBook(book);
 
         Book result = service.getBookById("1");
 
-        assertEquals("1", result.getId());
+        assertEquals("Clean Code", result.getTitle());
     }
 
     @Test

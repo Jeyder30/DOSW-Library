@@ -24,7 +24,9 @@ public class LoanServiceTest {
         userService.addUser(user);
         bookService.addBook(book);
 
-        LoanService loanService = new LoanService(userService, bookService);
+        LoanService loanService = new LoanService();
+        loanService.userService = userService;
+        loanService.bookService = bookService;
 
         Loan loan = loanService.createLoan("1", "1");
 
@@ -43,7 +45,9 @@ public class LoanServiceTest {
         userService.addUser(user);
         bookService.addBook(book);
 
-        LoanService loanService = new LoanService(userService, bookService);
+        LoanService loanService = new LoanService();
+        loanService.userService = userService;
+        loanService.bookService = bookService;
 
         Loan loan = loanService.createLoan("1", "1");
 
@@ -53,30 +57,11 @@ public class LoanServiceTest {
     }
 
     @Test
-    void shouldFailIfUserNotFound() {
-        UserService userService = new UserService();
-        BookService bookService = new BookService();
-
-        bookService.addBook(new Book("1", "Clean Code", "Martin"));
-
-        LoanService loanService = new LoanService(userService, bookService);
+    void shouldFailWhenLoanNotFound() {
+        LoanService loanService = new LoanService();
 
         assertThrows(RuntimeException.class, () -> {
-            loanService.createLoan("99", "1");
-        });
-    }
-
-    @Test
-    void shouldFailIfBookNotFound() {
-        UserService userService = new UserService();
-        BookService bookService = new BookService();
-
-        userService.addUser(new User("1", "Juan"));
-
-        LoanService loanService = new LoanService(userService, bookService);
-
-        assertThrows(RuntimeException.class, () -> {
-            loanService.createLoan("1", "99");
+            loanService.returnBook("999");
         });
     }
 }

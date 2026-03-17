@@ -17,7 +17,7 @@ public class UserServiceTest {
 
         User result = service.getUserById("1");
 
-        assertEquals("1", result.getId());
+        assertEquals("Juan", result.getName());
     }
 
     @Test
