@@ -1,6 +1,19 @@
 package edu.eci.dosw.DOSW_Library.tdd.core.model;
 
 public class User {
-    private String name;
     private String id;
+    private String name;
+
+    public User(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
