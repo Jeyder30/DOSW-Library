@@ -12,13 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public UserDTO createUser(@RequestBody UserDTO dto) {
+        User user = UserMapper.toModel(dto);
         userService.addUser(user);
-        return user;
+        return UserMapper.toDTO(user);
     }
 
     @GetMapping
@@ -29,12 +31,5 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUser(@PathVariable String id) {
         return userService.getUserById(id);
-    }
-
-    @PostMapping
-    public UserDTO createUser(@RequestBody UserDTO dto) {
-        User user = UserMapper.toModel(dto);
-        userService.addUser(user);
-        return UserMapper.toDTO(user);
     }
 }
