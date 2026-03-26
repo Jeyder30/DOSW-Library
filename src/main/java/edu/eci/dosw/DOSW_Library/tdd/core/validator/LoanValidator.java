@@ -19,6 +19,9 @@ public class LoanValidator {
     public static void validate(User user, Book book, List<Loan> loans) {
         ValidationUtil.requireNonNull(user, "User not found");
         ValidationUtil.requireNonNull(book, "Book not found");
+        if (book.getAvailableCopies() <= 0) {
+            throw new BookNotAvailableException("Book is not available for loan");
+        }
 
         long activeLoansByUser = loans.stream()
                 .filter(loan -> loan.getUser().getId().equals(user.getId()))
@@ -27,14 +30,6 @@ public class LoanValidator {
 
         if (activeLoansByUser >= MAX_ACTIVE_LOANS) {
             throw new LoanLimitExceededException("User has reached the maximum number of active loans");
-        }
-
-        boolean activeLoanForBook = loans.stream()
-                .filter(loan -> loan.getBook().getId().equals(book.getId()))
-                .anyMatch(loan -> loan.getStatus() == Status.ACTIVE);
-
-        if (activeLoanForBook) {
-            throw new BookNotAvailableException("Book is not available for loan");
         }
     }
 }

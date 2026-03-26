@@ -1,5 +1,6 @@
-package edu.eci.dosw.DOSW_Library.tdd.core.model;
+package edu.eci.dosw.DOSW_Library.tdd.controller.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+@Schema(description = "Respuesta con informacion de un libro")
+public class BookResponseDTO {
     private String id;
     private String title;
     private String author;
