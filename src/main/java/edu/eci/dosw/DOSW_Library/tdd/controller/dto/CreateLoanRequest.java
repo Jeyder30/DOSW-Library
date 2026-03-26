@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Representa un usuario de la biblioteca")
-public class UserDTO {
+@Schema(description = "Solicitud para crear un prestamo")
+public class CreateLoanRequest {
     @NotBlank(message = "User id is required")
     @Schema(example = "user-1")
-    private String id;
+    private String userId;
 
-    @NotBlank(message = "User name is required")
-    @Schema(example = "Juan Perez")
-    private String name;
+    @NotBlank(message = "Book id is required")
+    @Schema(example = "book-1")
+    private String bookId;
 }

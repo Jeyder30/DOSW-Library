@@ -2,35 +2,42 @@ package edu.eci.dosw.DOSW_Library.tdd.controller;
 
 import edu.eci.dosw.DOSW_Library.tdd.controller.dto.BookDTO;
 import edu.eci.dosw.DOSW_Library.tdd.controller.mapper.BookMapper;
-import edu.eci.dosw.DOSW_Library.tdd.core.model.Book;
 import edu.eci.dosw.DOSW_Library.tdd.core.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+@RequiredArgsConstructor
+@Tag(name = "Books", description = "Operaciones sobre libros")
 public class BookController {
+    private final BookService bookService;
 
-    @Autowired
-    private BookService bookService;
-
+    @Operation(summary = "Crear un libro")
     @PostMapping
-    public BookDTO createBook(@RequestBody BookDTO dto) {
-        Book book = BookMapper.toModel(dto);
-        bookService.addBook(book);
-        return BookMapper.toDTO(book);
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookDTO createBook(@Valid @RequestBody BookDTO dto) {
+        return BookMapper.toDTO(bookService.addBook(BookMapper.toModel(dto)));
     }
 
+    @Operation(summary = "Listar libros")
     @GetMapping
-    public List<Book> getBooks() {
-        return bookService.getAllBooks();
+    public List<BookDTO> getBooks() {
+        return bookService.getAllBooks().stream()
+                .map(BookMapper::toDTO)
+                .toList();
     }
 
-
+    @Operation(summary = "Consultar un libro por id")
     @GetMapping("/{id}")
-    public Book getBook(@PathVariable String id) {
-        return bookService.getBookById(id);
+    public BookDTO getBook(@PathVariable String id) {
+        return BookMapper.toDTO(bookService.getBookById(id));
     }
 }

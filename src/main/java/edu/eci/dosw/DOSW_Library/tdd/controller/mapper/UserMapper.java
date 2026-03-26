@@ -5,10 +5,16 @@ import edu.eci.dosw.DOSW_Library.tdd.core.model.User;
 
 public class UserMapper {
     public static User toModel(UserDTO dto) {
-        return new User(dto.getId(), dto.getName());
+        return User.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .build();
     }
 
     public static UserDTO toDTO(User user) {
-        return new UserDTO(user.getId(), user.getName());
+        return UserDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .build();
     }
 }

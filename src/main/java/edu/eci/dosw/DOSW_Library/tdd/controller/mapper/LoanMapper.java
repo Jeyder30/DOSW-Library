@@ -5,11 +5,13 @@ import edu.eci.dosw.DOSW_Library.tdd.core.model.Loan;
 
 public class LoanMapper {
     public static LoanDTO toDTO(Loan loan) {
-        return new LoanDTO(
-                loan.getId(),
-                loan.getUser().getId(),
-                loan.getBook().getId(),
-                loan.getStatus().name()
-        );
+        return LoanDTO.builder()
+                .id(loan.getId())
+                .userId(loan.getUser().getId())
+                .bookId(loan.getBook().getId())
+                .status(loan.getStatus().name())
+                .loanDate(loan.getLoanDate() != null ? loan.getLoanDate().toString() : null)
+                .returnDate(loan.getReturnDate() != null ? loan.getReturnDate().toString() : null)
+                .build();
     }
 }
