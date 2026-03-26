@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: DOSW-Library
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/dosw_library}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: ${SERVER_PORT:8080}
+  ssl:
+    enabled: ${SSL_ENABLED:false}
+    key-store: ${SSL_KEY_STORE:}
+    key-store-password: ${SSL_KEY_STORE_PASSWORD:}
+    key-store-type: ${SSL_KEY_STORE_TYPE:PKCS12}
+    key-alias: ${SSL_KEY_ALIAS:dosw-library}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:dosw-library-super-secret-key-for-jwt-signing-2026}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}
+  bootstrap:
+    librarian:
+      username: ${BOOTSTRAP_LIBRARIAN_USERNAME:admin}
+      password: ${BOOTSTRAP_LIBRARIAN_PASSWORD:Admin123*}
+      name: ${BOOTSTRAP_LIBRARIAN_NAME:Default Librarian}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
