@@ -186,8 +186,7 @@ En la siguiente evidencia se puede observar la base de datos creada y disponible
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Base de datos en pgAdmin](./images/base-datos-pgadmin.png)
+![Base de datos en pgAdmin](docs/imagenes/base_de_datos_pgAdmin.png)
 
 ---
 
@@ -199,8 +198,7 @@ En la siguiente imagen se muestra la aplicación en ejecución dentro del entorn
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Aplicación ejecutándose en IntelliJ](./images/aplicacion-intellij.png)
+![Aplicación ejecutándose en IntelliJ](docs/imagenes/aplicacion_intelliJ.png)
 
 ---
 
@@ -212,8 +210,8 @@ Desde esta interfaz fue posible interactuar con los endpoints disponibles y vali
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Swagger UI](./images/swagger-ui.png)
+![Swagger UI](docs/imagenes/swagger.png)
+![Swagger UI](docs/imagenes/swagger1.png)
 
 ---
 
@@ -225,8 +223,10 @@ En la siguiente evidencia se observa la autenticación exitosa, lo que permitió
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Login exitoso](./images/login-exitoso.png)
+
+![Login exitoso](docs/imagenes/login.png)
+![Login exitoso](docs/imagenes/login1.png)
+![Login exitoso](docs/imagenes/login2.png)
 
 ---
 
@@ -238,8 +238,8 @@ En la siguiente imagen se puede observar la solicitud realizada y la respuesta o
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Creación de libro](./images/crear-libro.png)
+
+![Creación de libro](docs/imagenes/registro_libro.png)
 
 ---
 
@@ -251,8 +251,7 @@ La siguiente evidencia muestra el momento en el que se registra correctamente es
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Préstamo exitoso](./images/prestamo-exitoso.png)
+![Préstamo exitoso](docs/imagenes/prestamo.png)
 
 ---
 
@@ -264,8 +263,7 @@ En la siguiente imagen se evidencia que la cantidad de copias disponibles fue ac
 
 ### Evidencia
 
-<!-- Insertar imagen aquí -->
-![Validación de stock](./images/validacion-stock.png)
+![Validación de stock](docs/imagenes/validacion_stock.png)
 
 ---
 
