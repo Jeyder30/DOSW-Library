@@ -1,11 +1,9 @@
 package edu.eci.dosw.DOSW_Library.tdd.core.service;
 
-import edu.eci.dosw.DOSW_Library.persistence.entity.BookEntity;
-import edu.eci.dosw.DOSW_Library.persistence.mapper.BookEntityMapper;
-import edu.eci.dosw.DOSW_Library.persistence.repository.BookRepository;
 import edu.eci.dosw.DOSW_Library.tdd.core.exception.BookNotFoundException;
 import edu.eci.dosw.DOSW_Library.tdd.core.model.Book;
 import edu.eci.dosw.DOSW_Library.tdd.core.validator.BookValidator;
+import edu.eci.dosw.DOSW_Library.tdd.persistence.port.LibraryBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,52 +14,50 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class BookService {
-    private final BookRepository bookRepository;
-    private final BookEntityMapper bookEntityMapper;
+
+    private final LibraryBookRepository bookRepository;
 
     @Transactional(readOnly = true)
     public List<Book> getAllBooks() {
-        return bookRepository.findAll().stream()
-                .map(bookEntityMapper::toDomain)
-                .toList();
+        return bookRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public List<Book> getAvailableBooks() {
         return bookRepository.findAll().stream()
-                .map(bookEntityMapper::toDomain)
                 .filter(book -> book.getAvailableCopies() > 0)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public Book getBookById(String id) {
-        return bookEntityMapper.toDomain(getBookEntityById(id));
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book with id " + id + " was not found"));
     }
 
     @Transactional
     public Book addBook(Book book) {
         BookValidator.validate(book);
-        BookEntity entity = bookEntityMapper.toEntity(book);
-        entity.setId(UUID.randomUUID());
-        return bookEntityMapper.toDomain(bookRepository.save(entity));
+        book.setId(UUID.randomUUID().toString());
+        return bookRepository.save(book);
     }
 
     @Transactional
     public Book updateBook(String id, Book book) {
         BookValidator.validate(book);
-        BookEntity entity = getBookEntityById(id);
-        entity.setTitle(book.getTitle());
-        entity.setAuthor(book.getAuthor());
-        entity.setIsbn(book.getIsbn());
-        entity.setTotalCopies(book.getTotalCopies());
-        entity.setAvailableCopies(book.getAvailableCopies());
-        return bookEntityMapper.toDomain(bookRepository.save(entity));
+        Book existing = getBookById(id);
+        existing.setTitle(book.getTitle());
+        existing.setAuthor(book.getAuthor());
+        existing.setIsbn(book.getIsbn());
+        existing.setTotalCopies(book.getTotalCopies());
+        existing.setAvailableCopies(book.getAvailableCopies());
+        return bookRepository.save(existing);
     }
 
-    @Transactional(readOnly = true)
-    public BookEntity getBookEntityById(String id) {
-        return bookRepository.findById(UUID.fromString(id))
-                .orElseThrow(() -> new BookNotFoundException("Book with id " + id + " was not found"));
+    @Transactional
+    public Book adjustAvailableCopies(String id, int delta) {
+        Book book = getBookById(id);
+        book.setAvailableCopies(book.getAvailableCopies() + delta);
+        return bookRepository.save(book);
     }
 }

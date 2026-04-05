@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = authorizationHeader.substring(7);
         String username;
         try {
+            jwtService.parseAndValidateClaims(jwt);
             username = jwtService.extractUsername(jwt);
         } catch (Exception ex) {
             filterChain.doFilter(request, response);

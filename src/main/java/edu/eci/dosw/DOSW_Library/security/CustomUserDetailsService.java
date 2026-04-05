@@ -1,6 +1,6 @@
 package edu.eci.dosw.DOSW_Library.security;
 
-import edu.eci.dosw.DOSW_Library.persistence.repository.UserRepository;
+import edu.eci.dosw.DOSW_Library.tdd.persistence.port.LibraryUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final LibraryUserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .map(user -> AppUserPrincipal.builder()
-                        .id(user.getId().toString())
+                        .id(user.getId())
                         .username(user.getUsername())
                         .password(user.getPassword())
                         .role(user.getRole())

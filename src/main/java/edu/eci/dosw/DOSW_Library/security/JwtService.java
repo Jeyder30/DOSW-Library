@@ -2,6 +2,7 @@ package edu.eci.dosw.DOSW_Library.security;
 
 import edu.eci.dosw.DOSW_Library.tdd.core.model.Role;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -45,6 +46,14 @@ public class JwtService {
                 .expiration(Date.from(now.plusMillis(expirationMs)))
                 .signWith(signingKey)
                 .compact();
+    }
+
+    /**
+     * Verifica la firma HMAC del token y su vigencia. Cualquier alteracion del payload o de la firma
+     * provoca {@link JwtException}, lo que aporta integridad frente a manipulacion en transito.
+     */
+    public Claims parseAndValidateClaims(String token) {
+        return extractAllClaims(token);
     }
 
     public String extractUsername(String token) {

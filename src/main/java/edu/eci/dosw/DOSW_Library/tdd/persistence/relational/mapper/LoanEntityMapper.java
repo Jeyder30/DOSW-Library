@@ -1,20 +1,20 @@
-package edu.eci.dosw.DOSW_Library.persistence.mapper;
+package edu.eci.dosw.DOSW_Library.tdd.persistence.relational.mapper;
 
-import edu.eci.dosw.DOSW_Library.persistence.entity.UserEntity;
-import edu.eci.dosw.DOSW_Library.tdd.core.model.User;
+import edu.eci.dosw.DOSW_Library.tdd.persistence.relational.entity.LoanEntity;
+import edu.eci.dosw.DOSW_Library.tdd.core.model.Loan;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.UUID;
 
-@Mapper(componentModel = "spring")
-public interface UserEntityMapper {
+@Mapper(componentModel = "spring", uses = {UserEntityMapper.class, BookEntityMapper.class})
+public interface LoanEntityMapper {
 
     @Mapping(target = "id", expression = "java(mapUuidToString(entity.getId()))")
-    User toDomain(UserEntity entity);
+    Loan toDomain(LoanEntity entity);
 
     @Mapping(target = "id", expression = "java(mapStringToUuid(domain.getId()))")
-    UserEntity toEntity(User domain);
+    LoanEntity toEntity(Loan domain);
 
     default String mapUuidToString(UUID value) {
         return value != null ? value.toString() : null;
