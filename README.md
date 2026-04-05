@@ -166,134 +166,122 @@ Al arrancar la aplicacion se crea un bibliotecario por defecto si todavia no exi
 | `CORS_ALLOWED_ORIGINS` | Origenes permitidos | `http://localhost:3000,http://localhost:5173` |
 | `SERVER_PORT` | Puerto HTTP | `8080` |
 
-### Ejecucion con PostgreSQL
+## Ejecucion con PostgreSQL
 
-1. Crear la base de datos:
+## Descripción
 
-```sql
-CREATE DATABASE dosw_library;
-```
+En esta parte del proyecto se realizó la validación del sistema utilizando PostgreSQL como base de datos y el perfil JPA en Spring Boot.
 
-2. Configurar variables en PowerShell:
+El objetivo de esta sección fue comprobar que la aplicación pudiera ejecutarse correctamente y que el flujo principal del sistema funcionara de manera adecuada a través de Swagger UI.
 
-```powershell
-$env:SPRING_PROFILES_ACTIVE="jpa"
-$env:DB_URL="jdbc:postgresql://localhost:5432/dosw_library"
-$env:DB_USERNAME="postgres"
-$env:DB_PASSWORD="postgres"
-./mvnw spring-boot:run
-```
+Las evidencias incluidas muestran el proceso de conexión, ejecución y validación del comportamiento esperado del sistema.
 
-Con el perfil `jpa`, Hibernate actualiza el esquema al iniciar gracias a `spring.jpa.hibernate.ddl-auto=update`.
+---
 
-### Ejecucion con MongoDB
+## Base de datos en PostgreSQL
 
-El proyecto tambien tiene soporte por perfil `mongo`. Si quieres arrancarlo con esa configuracion:
+Como parte de la ejecución del sistema, se utilizó una base de datos llamada `dosw_library` en PostgreSQL.
 
-```powershell
-$env:SPRING_PROFILES_ACTIVE="mongo"
-$env:MONGODB_URI="mongodb://localhost:27017/dosw_library"
-./mvnw spring-boot:run
-```
+En la siguiente evidencia se puede observar la base de datos creada y disponible dentro de pgAdmin.
 
-## 9. Ejemplos rapidos de uso
+### Evidencia
 
-### Login
+<!-- Insertar imagen aquí -->
+![Base de datos en pgAdmin](./images/base-datos-pgadmin.png)
 
-```http
-POST /auth/login
-Content-Type: application/json
+---
 
-{
-  "username": "admin",
-  "password": "Admin123*"
-}
-```
+## Ejecución del proyecto
 
-Respuesta esperada:
+Una vez configurado el entorno, el proyecto fue ejecutado desde IntelliJ utilizando la configuración correspondiente para trabajar con PostgreSQL.
 
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiJ9...",
-  "tokenType": "Bearer",
-  "expiresIn": 3600000,
-  "userId": "9f8d7c6b-1234-4567-890a-bcdef1234567",
-  "username": "admin",
-  "role": "LIBRARIAN"
-}
-```
+En la siguiente imagen se muestra la aplicación en ejecución dentro del entorno de desarrollo.
 
-### Crear un libro
+### Evidencia
 
-```http
-POST /books
-Authorization: Bearer <token>
-Content-Type: application/json
+<!-- Insertar imagen aquí -->
+![Aplicación ejecutándose en IntelliJ](./images/aplicacion-intellij.png)
 
-{
-  "title": "Clean Code",
-  "author": "Robert C. Martin",
-  "isbn": "9780132350884",
-  "totalCopies": 5,
-  "availableCopies": 5
-}
-```
+---
 
-### Registrar un prestamo
+## Acceso a Swagger UI
 
-```http
-POST /loans
-Authorization: Bearer <token>
-Content-Type: application/json
+Con la aplicación en ejecución, se accedió a la documentación interactiva de la API mediante Swagger UI.
 
-{
-  "bookId": "9b2d88f3-8f27-4bf8-a3ad-9c711db3e214"
-}
-```
+Desde esta interfaz fue posible interactuar con los endpoints disponibles y validar el funcionamiento del sistema.
 
-## 10. Documentacion de la API
+### Evidencia
 
-| Recurso | URL |
-| --- | --- |
-| Swagger UI | `http://localhost:8080/swagger-ui.html` |
-| OpenAPI JSON | `http://localhost:8080/api-docs` |
+<!-- Insertar imagen aquí -->
+![Swagger UI](./images/swagger-ui.png)
 
-## 11. Pruebas y calidad
+---
 
-Las pruebas automatizadas se ejecutan con el perfil `test`, que usa H2 en memoria. En esa configuracion no hace falta levantar PostgreSQL ni MongoDB.
+## Autenticación del sistema
 
-| Comando | Proposito |
-| --- | --- |
-| `./mvnw clean test` | Ejecuta la suite completa de pruebas |
-| `./mvnw pmd:pmd` | Ejecuta analisis estatico con PMD |
+Una de las primeras validaciones realizadas fue el inicio de sesión dentro del sistema.
 
-Actualmente la suite valida, entre otras cosas:
+En la siguiente evidencia se observa la autenticación exitosa, lo que permitió acceder a las operaciones protegidas de la API.
 
-- autenticacion con JWT
-- rechazo de peticiones sin token o con token invalido
-- autorizacion por rol
-- persistencia de usuarios, libros y prestamos
-- actualizacion del inventario cuando se presta o devuelve un libro
+### Evidencia
 
-## 12. Evidencias
+<!-- Insertar imagen aquí -->
+![Login exitoso](./images/login-exitoso.png)
 
-### Video
+---
 
-Antes de entregar el proyecto, cambia este enlace por el video real:
+## Registro de un libro
 
-[Video de pruebas funcionales y persistencia](https://example.com/reemplace-por-su-enlace-de-video)
+Posteriormente, se realizó el registro de un libro dentro del sistema.
 
-### Capturas
+En la siguiente imagen se puede observar la solicitud realizada y la respuesta obtenida al crear correctamente el recurso.
 
-#### Ejecucion de la API
+### Evidencia
 
-<img width="1092" height="691" alt="image" src="https://github.com/user-attachments/assets/bc6e77ba-cc7c-4e7f-b14f-130cff9a73b0" />
-<img width="1100" height="794" alt="image" src="https://github.com/user-attachments/assets/a0350b81-b657-4936-9c95-332438528924" />
+<!-- Insertar imagen aquí -->
+![Creación de libro](./images/crear-libro.png)
 
-#### Ejecucion de pruebas
+---
 
-<img width="333" height="299" alt="image" src="https://github.com/user-attachments/assets/471d91f1-b93c-40bd-9478-2dfae6093169" />
+## Registro de un préstamo
 
+Después de crear el libro, se realizó el registro de un préstamo dentro del sistema.
+
+La siguiente evidencia muestra el momento en el que se registra correctamente esta operación.
+
+### Evidencia
+
+<!-- Insertar imagen aquí -->
+![Préstamo exitoso](./images/prestamo-exitoso.png)
+
+---
+
+## Validación del estado final del libro
+
+Finalmente, se realizó la consulta del libro registrado para verificar su estado después del préstamo.
+
+En la siguiente imagen se evidencia que la cantidad de copias disponibles fue actualizada correctamente, lo cual confirma el comportamiento esperado del sistema.
+
+### Evidencia
+
+<!-- Insertar imagen aquí -->
+![Validación de stock](./images/validacion-stock.png)
+
+---
+
+## Conclusión
+
+A partir de las evidencias presentadas, se puede observar que el sistema fue ejecutado correctamente con PostgreSQL y que el flujo principal validado respondió de manera satisfactoria.
+
+Las imágenes permiten comprobar el funcionamiento general de la aplicación, desde su ejecución hasta la validación de operaciones principales relacionadas con autenticación, gestión de libros y registro de préstamos.
+
+---
 #### Cobertura y analisis estatico
 
-<img width="1143" height="836" alt="image" src="https://github.com/user-attachments/assets/ba27e33f-3597-4e33-9aa2-885dda94210d" />
+<img width="1463" height="588" alt="image" src="https://github.com/user-attachments/assets/885b5958-abc8-46e7-9e7d-9f5348694bb9" />
+<img width="1494" height="758" alt="image" src="https://github.com/user-attachments/assets/c7cbda9c-7be9-44c7-8a49-5d363d5bae03" />
+<img width="1484" height="439" alt="image" src="https://github.com/user-attachments/assets/e16d2439-5294-41ac-992d-61b38aa46d12" />
+<img width="1466" height="413" alt="image" src="https://github.com/user-attachments/assets/5152a247-9b5e-49e9-a95a-128826f624ef" />
+
+
+
