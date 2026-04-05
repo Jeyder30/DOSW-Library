@@ -274,6 +274,10 @@ A partir de las evidencias presentadas, se puede observar que el sistema fue eje
 Las imágenes permiten comprobar el funcionamiento general de la aplicación, desde su ejecución hasta la validación de operaciones principales relacionadas con autenticación, gestión de libros y registro de préstamos.
 
 ---
+### Modelo no relacional
+![LOAN](docs/imagenes/Modelo_no_relacional.png)
+
+---
 ### MONGO
 ![Mongo](docs/imagenes/Mongo.png)
 ![Mongo](docs/imagenes/Mongo2.png)
