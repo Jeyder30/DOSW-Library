@@ -157,10 +157,10 @@ Al arrancar la aplicacion se crea un bibliotecario por defecto si todavia no exi
 | Variable | Uso | Valor por defecto |
 | --- | --- | --- |
 | `SPRING_PROFILES_ACTIVE` | Perfil activo | `jpa` |
-| `DB_URL` | URL JDBC para PostgreSQL | `jdbc:postgresql://localhost:5432/dosw_library` |
+| `DB_URL` | URL JDBC para PostgreSQL | `jdbc:postgresql://localhost:5433/dosw_library` |
 | `DB_USERNAME` | Usuario de base de datos | `postgres` |
 | `DB_PASSWORD` | Contrasena de base de datos | `postgres` |
-| `MONGODB_URI` | Conexion MongoDB | `mongodb://localhost:27017/dosw_library` |
+| `MONGODB_URI` | Conexion MongoDB | `mongodb+srv://jeyderleonl_db_user:Je.30le14@cluster0.gfyayxk.mongodb.net/` |
 | `JWT_SECRET` | Clave para firmar JWT | valor definido en `application.yaml` |
 | `JWT_EXPIRATION_MS` | Duracion del token | `3600000` |
 | `CORS_ALLOWED_ORIGINS` | Origenes permitidos | `http://localhost:3000,http://localhost:5173` |
@@ -273,6 +273,12 @@ A partir de las evidencias presentadas, se puede observar que el sistema fue eje
 
 Las imágenes permiten comprobar el funcionamiento general de la aplicación, desde su ejecución hasta la validación de operaciones principales relacionadas con autenticación, gestión de libros y registro de préstamos.
 
+---
+### MONGO
+![Mongo](docs/imagenes/Mongo.png)
+![Mongo](docs/imagenes/Mongo2.png)
+![Mongo](docs/imagenes/Mongo1.png)
+![Mongo](docs/imagenes/Mongo3.png)
 ---
 #### Cobertura y analisis estatico
 
